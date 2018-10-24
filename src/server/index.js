@@ -9,23 +9,32 @@ app.listen(3000, () => {
     console.log('PORT: http://localhost:3000')
 })
 app.get('/', (res, req) => {
-    const con = mysql.createConnection({
+    const connection = mysql.createConnection({
         host: 'db',
         user: 'rbejot',
         password: 'rbejot',
         database: 'matcha'
-      })
+    })
       
-      con.connect((err) => {
+    connection.connect((err) => {
         if (err) {
-          console.log(err)
-          return
+            console.error('error connecting:  ' + err.stack)
         }
-        console.log('Connection with Database established')
-      })
-      
-      con.end((err) => {
-        if (err) console.log(err)
-        else console.log('Connection with Databse terminated')
-      })
+        console.log('connected as id ' + connection.threadId)
+    })
+    
+    connection.query('SELECT 1 + 1 AS solution', (err, results, fields) => {
+        if (err) throw err
+        console.log('The solution is: ', results[0].solution)
+    })
+
+    connection.query('CREATE DATABASE IF NOT EXISTS matcha', (err, results, fields) => {
+        if (err) throw err
+    })
+    connection.query('SHOW TABLES', (err, results, fields) => {
+        if (err) throw err
+        console.log(fields)
+    })
+    // connection.query()
+    connection.end()
 })
