@@ -4,7 +4,7 @@
   "description": "Dating website",
   "main": "src/server/index.js",
   "scripts": {
-    "srv-dev": "NODE_ENV=development nodemon --exec babel-node src/server/",
+    "srv-dev": "nodemon --exec babel-node src/server/",
     "srv-sync": "node --trace-sync-io src/server/",
     "srv-build": "NODE_ENV=production pm2 start src/server/",
     "test": "echo \"Error: no test specified\" && exit 1"
