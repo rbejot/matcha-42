@@ -4,11 +4,13 @@ module.exports = users = {
   'name': 'VARCHAR(25)',
   'firstname': 'VARCHAR(25)',
   'mail': 'VARCHAR(50)',
-  'password': 'VARCHAR(128)',
+  'password': 'VARCHAR(15)',
   'gender': 'INT(1)',
   'profil_picture': 'VARCHAR(258)',
   'sexual_orientation': 'INT(1)',
   'bio': 'VARCHAR(258)',
   'location': 'VARCHAR(258)',
+  'confirmed': 'INT(1)',
+  'confirmation_code': 'VARCHAR(10)',
   'create_date': 'TIMESTAMP'
 }

@@ -1,44 +1,13 @@
 const mysql = require('mysql')
-const users = require('./users')
-
-schema = () => {
-  let sql = ''
-  for (val in users) {
-    sql += val + ' ' + users[val] + ', '
-  }
-  sql = '(' + sql.replace(/, $/,')')
-  return sql
-}
-
-toInsert = (elements) => {
-  let keys = ''
-  let values = ''
-  for (val in elements) {
-    keys += val + ','
-    values += "'" + elements[val] + "'" + ','
-  }
-  keys = '(' + keys.replace(/,$/, ')')
-  values = '(' + values.replace(/,$/, ')')
-  return [keys, values]
-}
-
-randomUserId = () => {
-  let text = ''
-  let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
-  for (var i = 0; i < 10; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length))
-
-  return text
-}
+const utils = require('./utils')
 
 module.exports = class Db {
   constructor() {
     this.connection = mysql.createConnection({
-      host: 'db',
-      user: 'rbejot',
-      password: 'rbejot',
-      database: 'matcha'
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE
     })
     this.connection.connect()
   }
@@ -63,7 +32,7 @@ module.exports = class Db {
 
   createTable(name) {
     return new Promise((resolve, reject) => {
-      this.connection.query(`CREATE TABLE IF NOT EXISTS ${name} ${schema()}`, (err, res) => {
+      this.connection.query(`CREATE TABLE IF NOT EXISTS ${name} ${utils.schema(name)}`, (err, res) => {
         if (err) reject(err)
         else resolve(`Table ${name} created`)
       })
@@ -81,15 +50,18 @@ module.exports = class Db {
 
   async createUser(elements) {
     let user_exist = await this.findByMany('pseudo', 'mail', elements.pseudo, elements.mail, 'users')
-    if (user_exist.length !== 0)
-      throw new Error('User already exists')
+    if (user_exist.length !== 0) {
+      throw `${elements.pseudo} existe déjà`
+    }
     return new Promise((resolve, reject) => {
-      elements.id = randomUserId()
-      let keys = toInsert(elements)[0]
-      let values = toInsert(elements)[1]
+      elements.id = utils.randomUserId()
+      elements.confirmed = 0
+      elements.confirmation_code = utils.randomUserId()
+      let keys = utils.toInsert(elements)[0]
+      let values = utils.toInsert(elements)[1]
       this.connection.query(`INSERT INTO users ${keys} VALUES ${values}`, (err, res) => {
         if (err) reject(err)
-        else resolve(elements)
+        else resolve({ message: `User  ${elements.pseudo} crée`})
       })
     })
   }
