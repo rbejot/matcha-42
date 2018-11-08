@@ -23,7 +23,7 @@ module.exports = class Db {
 
   deleteTable(name) {
     return new Promise((resolve, reject) => {
-      this.connection.query(`DROP TABLE IF EXISTS ${name}`, (err) => {
+      this.connection.query(`DROP TABLE IF EXISTS ${name}`, (err, res) => {
         if (err) reject(err)
         else resolve(`Table ${name} deleted`)
       })
@@ -56,12 +56,18 @@ module.exports = class Db {
     return new Promise((resolve, reject) => {
       elements.id = utils.randomUserId()
       elements.confirmed = 0
-      elements.confirmation_code = utils.randomUserId()
+      elements.confirmation_code = utils.randomUserId(elements.pseudo)
       let keys = utils.toInsert(elements)[0]
       let values = utils.toInsert(elements)[1]
       this.connection.query(`INSERT INTO users ${keys} VALUES ${values}`, (err, res) => {
         if (err) reject(err)
-        else resolve({ message: `User  ${elements.pseudo} crée`})
+        else {
+          resolve({
+            message: `User  ${elements.pseudo} crée`,
+            confirmation: elements.confirmation_code,
+            pseudo: elements.pseudo
+          })
+        }
       })
     })
   }
