@@ -27,6 +27,14 @@ exports.toInsert = (elements) => {
   return [keys, values]
 }
 
+exports.multipleSet = (elements) => {
+  let sets = ''
+  for (val in elements) {
+    sets += `${val}=${elements[val]},`
+  }
+  return sets.replace(/,$/, '')
+}
+
 exports.randomUserId = (pseudo) => {
   let text = ''
   let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"

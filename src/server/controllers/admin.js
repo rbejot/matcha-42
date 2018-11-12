@@ -1,14 +1,3 @@
-// adminDb = (req) => {
-//   switch (Object.keys(req.body)[1]) {
-//     case 'create_table':
-//       return req.app.get('db').createTable(req.body.create_table)
-//     case 'delete_table':
-//       return req.app.get('db').deleteTable(req.body.delete_table)
-//     case 'show_tables':
-//       return req.app.get('db').showTables()
-//   }
-// }
-
 exports.createTable = async (req, res) => {
   try {
     res.status(201).json({

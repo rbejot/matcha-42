@@ -65,7 +65,7 @@ module.exports = class Db {
           resolve({
             message: `User  ${elements.pseudo} crée`,
             confirmation: elements.confirmation_code,
-            pseudo: elements.pseudo
+            firstname: elements.firstname
           })
         }
       })
@@ -94,7 +94,18 @@ module.exports = class Db {
     return new Promise((resolve, reject) => {
       this.connection.query(`SELECT * FROM ${table} WHERE ${row1} = '${field1}' AND ${row2} = '${field2}'`, (err, res) => {
         if (err) reject(err)
+        else if (res.length === 0) reject('entry not find')
         else resolve(res)  
+      })
+    })
+  }
+
+  updateEntry(elements, row, field, table) {
+    const sets = utils.multipleSet(elements)
+    return new Promise((resolve, reject) => {
+      this.connection.query(`UPDATE ${table} SET ${sets} WHERE ${row}=${field}`, (err, res) => {
+        if (err) reject(err)
+        else resolve(res)
       })
     })
   }

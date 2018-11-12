@@ -23,10 +23,10 @@ exports.createUser = (req, res, next) => {
 exports.confirm = (req, res, next) => {
   let err = []
   let id = req.params.id
-  let pseudo = req.params.pseudo
+  let firstname = req.params.firstname
   if (id.length !== 10)
     err.push('Wrong confirmation code')
-  if (verify.pseudo(pseudo))
+  if (verify.firstname(firstname))
     err.push('Wrong link')  
   if (err.length > 0)
     res.status(400).json({message: err})
