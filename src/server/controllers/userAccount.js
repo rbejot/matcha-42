@@ -1,13 +1,12 @@
 const Mail = require('../helpers/mail')
 const mail = new Mail()
+// const argon2 = require('argon2')
 
 exports.createUser = async (req, res) => {
   try {
-    let response = await res.app.get('db').createUser(req.body) 
+    // console.log(await argon2.hash(req.body.password))
+    let response = await res.app.get('db').createUser(req.body)
     mail.registerMail(req.body.mail, response.confirmation, response.firstname)
-    res.status(201).json({
-      message: response.message
-    })
   } catch (err) {
     res.status(500).json({
       error: err
