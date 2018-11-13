@@ -60,7 +60,7 @@ module.exports = class Db {
       let keys = utils.toInsert(elements)[0]
       let values = utils.toInsert(elements)[1]
       this.connection.query(`INSERT INTO users ${keys} VALUES ${values}`, (err, res) => {
-        if (err) reject(err)
+        if (err) reject(`Error in creating user in database : ${err}`)
         else {
           resolve({
             message: `User  ${elements.pseudo} crée`,

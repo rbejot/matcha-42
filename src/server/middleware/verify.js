@@ -1,3 +1,16 @@
+const Token = require('../helpers/token')
+const token = new Token()
+
+exports.checkToken = async (userToken) => {
+  try {
+    const decoded = await token.decode(userToken)
+    const currentTime = new Date() / 1000
+    if (currentTime >= decoded.exp) throw 'Token expired'
+  } catch (err) {
+    throw err
+  }
+}
+
 exports.mail = (mail) => {
   if (!mail)
     return 'Email requis'

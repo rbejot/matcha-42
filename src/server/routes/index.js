@@ -11,4 +11,7 @@ module.exports = (app) => {
   app.route('/admin')
     .post(validator.admin, controllers.admin.createTable)
     .delete(validator.admin, controllers.admin.deleteTable)
+
+  app.route('/auth')
+    .get(validator.token, controllers.userAccount.checkUserAuth)
 }

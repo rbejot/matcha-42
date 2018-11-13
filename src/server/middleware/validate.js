@@ -15,7 +15,7 @@ exports.createUser = (req, res, next) => {
   if (verify.pseudo(req.body.pseudo))
     err.push(verify.pseudo(req.body.pseudo))
   if (err.length > 0)
-    res.status(400).json({message: err})
+    res.status(400).json({error: err})
   else
     next()
 }
@@ -29,7 +29,7 @@ exports.confirm = (req, res, next) => {
   if (verify.firstname(firstname))
     err.push('Wrong link')  
   if (err.length > 0)
-    res.status(400).json({message: err})
+    res.status(400).json({error: err})
   else
     next()
 }
@@ -39,10 +39,25 @@ exports.admin = (req, res, next) => {
   let request = ['table']
   if (req.body.pass !== process.env.ADMIN_PASS)
     err.push('Bad password')
-  if (request.indexOf(Object.keys(req.body)[1]) === -1)
-    err.push(`Invalid request, ${Object.keys(req.body)[1]} not known`)
+  if (!req.body.table)
+    err.push('You must give a table name')
   if (err.length > 0)
-    res.status(400).json({message: err})
+    res.status(400).json({error: err})
   else
     next()
+}
+
+exports.token = async (req, res, next) => {
+  try {
+    let token = req.headers.authorization.split(' ')[1]
+    if (!token)
+      throw 'No token provided'
+    await verify.checkToken(token)
+    req.token = token
+    next()
+  } catch (err) {
+    res.status(401).json({
+      error: err
+    })
+  }
 }
