@@ -51,7 +51,7 @@ module.exports = class Db {
   async createUser(elements) {
     let user_exist = await this.findByMany('pseudo', 'mail', elements.pseudo, elements.mail, 'users')
     if (user_exist.length !== 0) {
-      throw `${elements.pseudo} existe déjà`
+      throw `${elements.pseudo} already exists`
     }
     return new Promise((resolve, reject) => {
       elements.id = utils.randomUserId()
@@ -72,11 +72,11 @@ module.exports = class Db {
     })
   }
 
-  findByMany(row1, row2, field1, field2 ,table) {
+  findByMany(row1, row2, field1, field2, table) {
     return new Promise((resolve, reject) => {
       this.connection.query(`SELECT * FROM ${table} WHERE ${row1} = '${field1}' OR ${row2} = '${field2}'`, (err, res) => {
-        if (err || res.length == 0) reject(err || 'No entry found')
-        else resolve(res)  
+        if (err) reject(err)
+        else resolve(res)
       })
     })
   }
@@ -90,12 +90,12 @@ module.exports = class Db {
     })
   }
 
-  findByTwo(row1, row2, field1, field2 ,table) {
+  findByTwo(row1, row2, field1, field2, table) {
     return new Promise((resolve, reject) => {
       this.connection.query(`SELECT * FROM ${table} WHERE ${row1} = '${field1}' AND ${row2} = '${field2}'`, (err, res) => {
         if (err) reject(err)
         else if (res.length === 0) reject('Entry not find')
-        else resolve(res)  
+        else resolve(res)
       })
     })
   }

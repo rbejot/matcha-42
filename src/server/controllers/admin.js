@@ -1,35 +1,18 @@
 exports.createTable = async (req, res) => {
-  try {
-    res.status(201).json({
-      message: await req.app.get('db').createTable(req.body.table)
-    })
-  } catch (err) {
-    res.status(403).json({
-      error: err
-    })
-  }
+  res.status(200).json({
+    message: await req.app.get('db').createTable(req.body.table)
+  })
 }
 
 exports.showTables = async (req, res) => {
-  try {
-    res.status(201).json({
-      message: await req.app.get('db').showTables()
-    })
-  } catch (err) {
-    res.status(403).json({
-      error: err
-    })
-  }
+  res.status(200).json({
+    message: await req.app.get('db').showTables()
+  })
 }
 
 exports.deleteTable = async (req, res) => {
-  try {
-    res.status(201).json({
-      message: req.app.get('db').deleteTable(req.body.table)
-    })
-  } catch (err) {
-    res.status(403).json({
-      error: err
-    })
-  }
+  await req.app.get('db').deleteTable(req.body.table)
+  res.status(201).json({
+    message: `Table ${req.body.table} deleted`
+  })
 }

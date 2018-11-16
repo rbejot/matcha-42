@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 
-//new Token({id: 'awfawf'})
 module.exports = class Token {
   constructor() {
     this.options = {
@@ -9,9 +8,9 @@ module.exports = class Token {
     this.secret = process.env.JWT_SECRET
   }
 
-  create(userId) {
+  create(userId, profil) {
     return new Promise((resolve, reject) => {
-      jwt.sign({id: userId}, this.secret, this.options, (err, token) => {
+      jwt.sign({id: userId, profil: profil}, this.secret, this.options, (err, token) => {
         if (err) reject(err)
         else resolve(token)
       })

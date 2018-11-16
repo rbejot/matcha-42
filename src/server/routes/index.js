@@ -1,20 +1,26 @@
-const controllers = require('../controllers/')
-const validator   = require('../middleware/validate')
+const controllers  = require('../controllers/')
+const validator    = require('../middleware/validate')
+const wrap         = require('../middleware/wrap')
 
 module.exports = (app) => {
   app.route('/register')
-    .post(validator.createUser, controllers.userAccount.createUser)
+    .post(validator.createUser, wrap(controllers.userAccount.createUser))
 
   app.route('/login')
-    .post(validator.loginUser, controllers.userAccount.loginUser)
+    .post(validator.loginUser, wrap(controllers.userAccount.loginUser))
 
   app.route('/confirmation/:id/:firstname')
-    .get(validator.confirm, controllers.userAccount.confirmUser)
+    .get(validator.confirm, wrap(controllers.userAccount.confirmUser))
+
+  app.route('/profil')
+    .get(wrap(validator.token), wrap(controllers.profil.getProfil))
+  // .post(validator.token, controllers.profil.updateProfil)
 
   app.route('/auth')
-    .get(validator.token, controllers.userAccount.checkUserAuth)
+    .get(wrap(validator.token), wrap(controllers.auth.checkAuth))
 
   app.route('/admin')
-    .post(validator.admin, controllers.admin.createTable)
-    .delete(validator.admin, controllers.admin.deleteTable)
+    .post(validator.admin, wrap(controllers.admin.createTable))
+    .delete(validator.admin, wrap(controllers.admin.deleteTable))
+    .get(validator.admin, wrap(controllers.admin.showTables))
 }

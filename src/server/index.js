@@ -16,6 +16,18 @@ app.set('db', db)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 require('./routes/')(app)
+
+app.use((err, req, res, next) => {
+    err = {
+        info: err,
+        request: req.originalUrl
+    }
+    next(err)
+})
+app.use((err, req, res, next) => {
+    res.status(400).send({error: err})
+})
+
 app.listen(stage.port, () => {
     console.log(`Listen on : ${stage.port}`)
 })
