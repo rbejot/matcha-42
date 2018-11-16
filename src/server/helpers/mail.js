@@ -27,7 +27,7 @@ module.exports = class Mail {
       let subject = 'Confirmez votre email'
       let html = template.register.mail(confirmationCode, firstname)
       this.transporter.sendMail(this.mailOptions(mail, subject, html), (err, info) => {
-        if (err) reject(err)
+        if (err) reject(`Error in sending confirmation mail : ${err}`)
         else resolve({message: 'mail envoye'})
       })
     })
