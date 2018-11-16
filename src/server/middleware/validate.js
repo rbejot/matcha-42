@@ -20,6 +20,20 @@ exports.createUser = (req, res, next) => {
     next()
 }
 
+exports.loginUser = (req, res, next) => {
+  let err = []
+  if (Object.keys(req.body).length > 2)
+    err.push('Too many parameters')
+  if (verify.mail(req.body.mail))
+    err.push(verify.mail(req.body.mail))
+  if (verify.pass(req.body.password))
+    err.push(verify.pass(req.body.password))
+  if (err.length > 0)
+    res.status(400).json({error: err})
+  else
+    next()
+}
+
 exports.confirm = (req, res, next) => {
   let err = []
   let id = req.params.id
@@ -52,8 +66,7 @@ exports.token = async (req, res, next) => {
     let token = req.headers.authorization.split(' ')[1]
     if (!token)
       throw 'No token provided'
-    await verify.checkToken(token)
-    req.token = token
+    req.decoded = await verify.checkToken(token)
     next()
   } catch (err) {
     res.status(401).json({

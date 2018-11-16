@@ -75,7 +75,7 @@ module.exports = class Db {
   findByMany(row1, row2, field1, field2 ,table) {
     return new Promise((resolve, reject) => {
       this.connection.query(`SELECT * FROM ${table} WHERE ${row1} = '${field1}' OR ${row2} = '${field2}'`, (err, res) => {
-        if (err) reject(err)
+        if (err || res.length == 0) reject(err || 'No entry found')
         else resolve(res)  
       })
     })
@@ -84,7 +84,7 @@ module.exports = class Db {
   findByOne(row, field, table) {
     return new Promise((resolve, reject) => {
       this.connection.query(`SELECT * FROM ${table} WHERE ${row} = ${mysql.escape(field)}`, (err, res) => {
-        if (err) reject(err)
+        if (err || res.length == 0) reject(err || 'No entry found')
         else resolve(res)
       })
     })
@@ -94,7 +94,7 @@ module.exports = class Db {
     return new Promise((resolve, reject) => {
       this.connection.query(`SELECT * FROM ${table} WHERE ${row1} = '${field1}' AND ${row2} = '${field2}'`, (err, res) => {
         if (err) reject(err)
-        else if (res.length === 0) reject('entry not find')
+        else if (res.length === 0) reject('Entry not find')
         else resolve(res)  
       })
     })

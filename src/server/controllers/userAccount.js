@@ -19,6 +19,22 @@ exports.createUser = async (req, res) => {
   }
 }
 
+exports.loginUser = async (req, res) => {
+  try {
+    const response = await res.app.get('db').findByOne('mail', req.body.mail, 'users')
+    await pass.comparePassword(req.body.password, response[0].password)
+    const auth = await token.create(response[0].id)
+    res.status(201).json({
+      message: 'User connected',
+      token: auth
+    })
+  } catch (err) {
+    res.status(401).json({
+      error: err
+    })
+  }
+}
+
 exports.confirmUser = async (req, res) => {
   try {
     const response = await res.app.get('db').findByTwo('firstname','confirmation_code', req.params.firstname, req.params.id, 'users')
@@ -39,7 +55,7 @@ exports.confirmUser = async (req, res) => {
 
 exports.checkUserAuth = async (req, res) => {
     try {
-      const response = await res.app.get('db').findByOne('id', decoded.id, 'users')
+      const response = await res.app.get('db').findByOne('id', req.decoded.id, 'users')
       res.status(200).json({
         message: `Authorized access for user ${response[0].pseudo}`
       })
