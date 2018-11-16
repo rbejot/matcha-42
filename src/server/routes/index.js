@@ -11,10 +11,10 @@ module.exports = (app) => {
   app.route('/confirmation/:id/:firstname')
     .get(validator.confirm, controllers.userAccount.confirmUser)
 
+  app.route('/auth')
+    .get(validator.token, controllers.userAccount.checkUserAuth)
+
   app.route('/admin')
     .post(validator.admin, controllers.admin.createTable)
     .delete(validator.admin, controllers.admin.deleteTable)
-
-  app.route('/auth')
-    .get(validator.token, controllers.userAccount.checkUserAuth)
 }
