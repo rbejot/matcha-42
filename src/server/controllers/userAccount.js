@@ -16,9 +16,9 @@ exports.createUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   const response = await res.app.get('db').findByOne('mail', req.body.mail, 'users')
+  await pass.comparePassword(req.body.password, response[0].password)
   if (response[0].confirmed == 0)
     throw 'User must confirm his mail before login'
-  await pass.comparePassword(req.body.password, response[0].password)
   const auth = await token.create(response[0].id, processProfil(response[0]))
   res.status(200).json({
     message: 'User connected',

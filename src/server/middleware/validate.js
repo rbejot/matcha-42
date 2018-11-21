@@ -51,6 +51,8 @@ exports.confirm = (req, res, next) => {
 exports.admin = (req, res, next) => {
   let err = []
   let request = ['table']
+  if (!req.body.pass && !req.query.pass)
+    err.push('You must give a password')
   if (req.body.pass && req.body.pass !== process.env.ADMIN_PASS ||
     req.query.pass && req.query.pass !== process.env.ADMIN_PASS)
     err.push('Bad password')

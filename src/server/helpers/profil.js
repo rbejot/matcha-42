@@ -1,5 +1,4 @@
 module.exports = (elements) => {
-    delete elements['id']
     delete elements['password']
     delete elements['confirmed']
     delete elements['confirmation_code']
