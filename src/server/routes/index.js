@@ -14,7 +14,7 @@ module.exports = (app) => {
 
   app.route('/profil')
     .get(wrap(validator.token), wrap(controllers.profil.getProfil))
-  // .post(validator.token, controllers.profil.updateProfil)
+    .post(validator.token, validator.updateProfil, wrap(controllers.profil.updateProfil))
 
   app.route('/auth')
     .get(wrap(validator.token), wrap(controllers.auth.checkAuth))

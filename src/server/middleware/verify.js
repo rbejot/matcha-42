@@ -81,3 +81,40 @@ exports.pseudo = (pseudo) => {
   }
 }
 
+exports.gender = (sexe) => {
+  console.log('gender')
+  if (sexe.length > 1)
+    return 'Invalid sexe'
+  sexe = parseInt(sexe)
+  if (Number.isInteger(sexe)) {
+    if (sexe !== 1 && sexe !== 2 && sexe !== 3)
+      return 'Invalid gender'
+    else
+      return false
+  } else {
+    return 'Gender must be an integer'
+  }
+}
+
+exports.orientation = (sexual_orientation) => {
+  console.log('tesy')
+  if (sexual_orientation.length > 1)
+    return 'Invalid orientation'
+  sexual_orientation = parseInt(sexual_orientation)
+  if (Number.isInteger(sexual_orientation)) {
+    if (sexual_orientation !== 1 && sexual_orientation !== 2 && sexual_orientation !== 3)
+      return 'Invalid orientation'
+    else
+      return false
+  } else {
+    return 'Orientation must be an integer'
+  }
+}
+
+exports.bio = (text) => {
+  if (text.length < 6)
+    return 'Bio is too short'
+  if (text.length > 257)
+    return 'Bio is too long'
+  return false
+}

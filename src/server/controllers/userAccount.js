@@ -1,4 +1,4 @@
-const pass = require('../helpers/password.js')
+const pass = require('../helpers/password')
 const Mail = require('../helpers/mail')
 const mail = new Mail()
 const Token = require('../helpers/token')

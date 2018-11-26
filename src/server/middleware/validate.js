@@ -71,3 +71,21 @@ exports.token = async (req, res, next) => {
   req.decoded = await verify.checkToken(token)
   next()
 }
+
+exports.updateProfil = (req, res, next) => {
+  let err = []
+  if (Object.keys(req.body).length === 0)
+    err.push('You must update at least one entry')
+  if (req.body.gender && verify.gender(req.body.gender))
+    err.push(verify.gender(req.body.gender))
+  if (req.body.sexual_orientation && verify.orientation(req.body.sexual_orientation))
+    err.push(verify.orientation(req.body.sexual_orientation))
+  if (req.body.bio && verify.bio(req.body.bio))
+    err.push(verify.bio(req.body.bio))
+  else
+    req.body.bio = encodeURI(req.body.bio)
+  if (err.length > 0)
+    next(err)
+  else
+    next()
+}
