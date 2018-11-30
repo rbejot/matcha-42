@@ -79,6 +79,17 @@ exports.confirm = (req, res, next) => {
     next()
 }
 
+exports.publicProfil = (req, res, next) => {
+  let err = []
+  let id = req.params.id
+  if (id.length !== 10)
+    err.push('Wrong user id')
+  if (err.length > 0)
+    next(err)
+  else
+    next()
+}
+
 exports.admin = (req, res, next) => {
   let err = []
   let request = ['table']
@@ -101,6 +112,18 @@ exports.token = async (req, res, next) => {
     throw 'No token provided'
   req.decoded = await verify.checkToken(token)
   next()
+}
+
+exports.tags = (req, res, next) => {
+  let err = []
+  if (!req.body.tag)
+    next('You must provide [tag]')
+  if (verify.tag(req.body.tag))
+      err.push(verify.tag(req.body.tag))
+  if (err.length > 0)
+    next(err)
+  else 
+    next()
 }
 
 exports.updateProfil = (req, res, next) => {

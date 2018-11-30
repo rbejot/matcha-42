@@ -26,6 +26,13 @@ exports.mail = (mail) => {
   }
 }
 
+exports.tag = (tag) => {
+  const rgx = /^[a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ]+$/
+  if (!rgx.test(String(tag).toLowerCase()) || tag.length >= 25 || tag.length <= 3)
+    return `${tag} is not valid : less than 3 or more than 25 characters or not allowed characters`
+  return false
+}
+
 exports.pass = (pass) => {
   if (!pass)
     return 'Password required'

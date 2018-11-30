@@ -8,8 +8,8 @@ const bodyParser    = require('body-parser')
 const environment   = process.env.NODE_ENV
 const stage         = require('./config')[environment]
 
-const Db = require('./models/')
-const db = new Db()
+const Db            = require('./models/')
+const db            = new Db()
 
 app.use(helmet())
 app.use(compression())

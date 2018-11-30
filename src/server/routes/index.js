@@ -17,6 +17,9 @@ module.exports = (app) => {
     .get(wrap(validator.token), wrap(controllers.profil.getProfil))
     .post(validator.token, validator.updateProfil, wrap(controllers.profil.updateProfil))
 
+  app.route('/profil/:id')
+    .get(wrap(validator.token), validator.publicProfil, wrap(controllers.profil.getPublicProfil))
+
   app.route('/password')
     .post(wrap(validator.token), validator.password, wrap(controllers.password.updatePassword))
     .get(validator.mail, wrap(controllers.password.forgotPassword))
@@ -27,6 +30,15 @@ module.exports = (app) => {
   app.route('/picture')
     .post(wrap(validator.token), upload.single('picture'), wrap(controllers.pictures.addPicture))
     .delete(wrap(validator.token), validator.deletePicture, wrap(controllers.pictures.deletePicture))
+    .get(wrap(validator.token), wrap(controllers.pictures.getPictures))
+
+  app.route('/tags')
+    .post(wrap(validator.token), validator.tags, wrap(controllers.tags.addTag))
+    .get(wrap(validator.token), wrap(controllers.tags.getTags))
+    .delete(wrap(validator.token), validator.tags, wrap(controllers.tags.deleteTag))
+
+  app.route('/tags_suggestion')
+    .get(wrap(validator.token), wrap(controllers.tags.getSuggestTags))
 
   app.route('/mail')
     .post(wrap(validator.token), validator.mail, wrap(controllers.mail.updateMail))

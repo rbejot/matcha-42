@@ -31,10 +31,20 @@ module.exports = class Db {
   }
 
   createTable(name) {
+    console.log(name)
     return new Promise((resolve, reject) => {
       this.connection.query(`CREATE TABLE IF NOT EXISTS ${name} ${utils.schema(name)}`, (err, res) => {
         if (err) reject(err)
         else resolve(`Table ${name} created`)
+      })
+    })
+  }
+
+  showTable(table, select) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(`SELECT ${select} FROM ${table}`, (err, res) => {
+        if (err) reject(err)
+        else resolve(res)
       })
     })
   }
@@ -106,9 +116,9 @@ module.exports = class Db {
     })
   }
 
-  delete(row, field, table) {
+  delete(row1, row2, field1, field2, table) {
     return new Promise((resolve, reject) => {
-      this.connection.query(`DELETE FROM ${table} WHERE ${row} = '${field}'`, (err, res) => {
+      this.connection.query(`DELETE FROM ${table} WHERE ${row1} = ${mysql.escape(field1)} AND ${row2} = ${mysql.escape(field2)}`, (err, res) => {
         if (err) reject(err)
         else resolve(res)
       })

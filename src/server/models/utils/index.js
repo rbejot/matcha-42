@@ -1,5 +1,7 @@
-const users = require('../users')
-const pictures = require('../pictures')
+const users     = require('../users')
+const pictures  = require('../pictures')
+const tags      = require('../tags')
+const interests = require('../interests')
 
 exports.schema = (table_name) => {
   let sql = ''
@@ -7,8 +9,15 @@ exports.schema = (table_name) => {
   switch (table_name) {
     case 'users':
       table = users
+    break
     case 'pictures':
       table = pictures
+    break
+    case 'tags':
+      table = tags
+    break
+    case 'interests':
+      table = interests
     break
   }
   for (val in table) {
