@@ -17,12 +17,12 @@ app.set('db', db)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.use('/images', express.static(__dirname + '/public'))
+app.use('/pictures', express.static(__dirname + '/public'));
 
 require('./routes/')(app)
 
 app.use((err, req, res, next) => {
-    console.log(err)
+  console.log(err)
     err = {
         info: err,
         request: req.originalUrl

@@ -4,9 +4,15 @@ const mail = new Mail()
 const Token = require('../helpers/token')
 const token = new Token()
 const processProfil = require('../helpers/profil')
+const id = require('../helpers/id')
 
 exports.createUser = async (req, res) => {
   req.body.password = await pass.hashPassword(req.body.password)
+  req.body.sexual_orientation = 3
+  req.body.id = id.randomUserId()
+  req.body.confirmed = 0
+  req.body.forgot = 0
+  req.body.confirmation_code = id.randomUserId()
   let response = await res.app.get('db').createUser(req.body)
   mail.registerMail(req.body.mail, response.confirmation, response.firstname)
   res.status(200).json({
@@ -31,8 +37,9 @@ exports.confirmUser = async (req, res) => {
   if (response[0].confirmed === 1)
     throw 'User already confirmed'
   await res.app.get('db').updateEntry({
-    confirmed: 1
-  }, 'id', `'${response[0].id}'`, 'users')
+    confirmed: 1,
+    confirmation_code: id.randomUserId()
+  }, 'id', response[0].id, 'users')
   mail.confirmationMail(response[0].mail, response[0].firstname)
   const auth = await token.create(response[0].id, processProfil(response[0]))
   res.status(200).redirect(`http://localhost:3000/home?auth=${auth}`)

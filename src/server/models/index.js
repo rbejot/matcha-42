@@ -48,19 +48,33 @@ module.exports = class Db {
     })
   }
 
+  insertEntry(elements, table) {
+    return new Promise((resolve, reject) => {
+      let insert = utils.toInsert(elements)
+      let keys = insert[0]
+      let values = insert[1]
+      this.connection.query(`INSERT INTO ${table} ${keys} VALUES ${values}`, (err, res) => {
+        if (err) reject(`Error in inserting element in database: ${err}`)
+        else {
+          resolve({
+            message: `Element inserted in table ${table}`
+          })
+        }
+      })
+    })
+  }
+
   async createUser(elements) {
     let user_exist = await this.findByMany('pseudo', 'mail', elements.pseudo, elements.mail, 'users')
     if (user_exist.length !== 0) {
       throw `${elements.pseudo} already exists`
     }
     return new Promise((resolve, reject) => {
-      elements.id = utils.randomUserId()
-      elements.confirmed = 0
-      elements.confirmation_code = utils.randomUserId(elements.pseudo)
-      let keys = utils.toInsert(elements)[0]
-      let values = utils.toInsert(elements)[1]
+      let insert = utils.toInsert(elements)
+      let keys = insert[0]
+      let values = insert[1]
       this.connection.query(`INSERT INTO users ${keys} VALUES ${values}`, (err, res) => {
-        if (err) reject(`Error in creating user in database : ${err}`)
+        if (err) reject(`Error in inserting user in database : ${err}`)
         else {
           resolve({
             message: `User  ${elements.pseudo} crée`,
@@ -81,6 +95,24 @@ module.exports = class Db {
     })
   }
 
+  find(row, field, table) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(`SELECT * FROM ${table} WHERE ${row} = ${mysql.escape(field)}`, (err, res) => {
+        if (err) reject(err)
+        else resolve(res)
+      })
+    })
+  }
+
+  delete(row, field, table) {
+    return new Promise((resolve, reject) => {
+      this.connection.query(`DELETE FROM ${table} WHERE ${row} = '${field}'`, (err, res) => {
+        if (err) reject(err)
+        else resolve(res)
+      })
+    })
+  }
+
   findByOne(row, field, table) {
     return new Promise((resolve, reject) => {
       this.connection.query(`SELECT * FROM ${table} WHERE ${row} = ${mysql.escape(field)}`, (err, res) => {
@@ -92,7 +124,7 @@ module.exports = class Db {
 
   findByTwo(row1, row2, field1, field2, table) {
     return new Promise((resolve, reject) => {
-      this.connection.query(`SELECT * FROM ${table} WHERE ${row1} = '${field1}' AND ${row2} = '${field2}'`, (err, res) => {
+      this.connection.query(`SELECT * FROM ${table} WHERE ${row1} = ${mysql.escape(field1)} AND ${row2} = ${mysql.escape(field2)}`, (err, res) => {
         if (err) reject(err)
         else if (res.length === 0) reject('Entry not find')
         else resolve(res)
@@ -103,7 +135,7 @@ module.exports = class Db {
   updateEntry(elements, row, field, table) {
     const sets = utils.multipleSet(elements)
     return new Promise((resolve, reject) => {
-      this.connection.query(`UPDATE ${table} SET ${sets} WHERE ${row}=${field}`, (err, res) => {
+      this.connection.query(`UPDATE ${table} SET ${sets} WHERE ${row}="${field}"`, (err, res) => {
         if (err) reject(err)
         else resolve(res)
       })

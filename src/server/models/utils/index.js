@@ -1,4 +1,5 @@
 const users = require('../users')
+const pictures = require('../pictures')
 
 exports.schema = (table_name) => {
   let sql = ''
@@ -6,6 +7,8 @@ exports.schema = (table_name) => {
   switch (table_name) {
     case 'users':
       table = users
+    case 'pictures':
+      table = pictures
     break
   }
   for (val in table) {
@@ -30,17 +33,7 @@ exports.toInsert = (elements) => {
 exports.multipleSet = (elements) => {
   let sets = ''
   for (val in elements) {
-    sets += `${val}=${elements[val]},`
+    sets += `${val}="${elements[val]}",`
   }
   return sets.replace(/,$/, '')
-}
-
-exports.randomUserId = (pseudo) => {
-  let text = ''
-  let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-
-  for (var i = 0; i < 10; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length))
-  
-  return text
 }

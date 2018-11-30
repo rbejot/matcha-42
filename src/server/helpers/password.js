@@ -22,3 +22,14 @@ exports.comparePassword = (password, hash) => {
     })
   })
 }
+
+// exports.provisoryPassword = () => {
+//   let text = ''
+//   const possible_letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+//   const possible_number = "0123456789"
+//   for (let i = 0; i < 3; i++)
+//     text += possible_letter.charAt(Math.floor(Math.random() * possible_letter.length))
+//   for (let i = 0; i < 3; i++)
+//     text += possible_number.charAt(Math.floor(Math.random() * possible_number.length))
+//   return text
+// }

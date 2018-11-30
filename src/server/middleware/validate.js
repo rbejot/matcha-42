@@ -20,6 +20,32 @@ exports.createUser = (req, res, next) => {
     next()
 }
 
+exports.password = (req, res, next) => {
+  let err = []
+  if (!req.body.old_pass && !req.body.new_pass || !req.body.new_pass && req.body.forgotten === true)
+    err.push('You must provide [old_pass] and [new_pass]')
+  if (!req.body.forgotten) {
+    if (verify.pass(req.body.old_pass))
+    err.push(verify.pass(req.body.old_pass))
+  }
+  if (verify.pass(req.body.new_pass))
+    err.push(verify.pass(req.body.new_pass))
+  if (err.length > 0)
+    next(err)
+  else
+    next()
+}
+
+exports.mail = (req, res, next) => {
+  let err = []
+  if (verify.mail(req.query.mail))
+    err.push(verify.mail(req.query.mail))
+  if (err.length > 0)
+    next(err)
+  else
+    next()
+}
+
 exports.loginUser = (req, res, next) => {
   let err = []
   if (Object.keys(req.body).length > 2)
@@ -82,8 +108,24 @@ exports.updateProfil = (req, res, next) => {
     err.push(verify.orientation(req.body.sexual_orientation))
   if (req.body.bio && verify.bio(req.body.bio))
     err.push(verify.bio(req.body.bio))
+  if (req.body.pseudo && verify.pseudo(req.body.pseudo))
+    err.push(verify.pseudo(req.body.pseudo))
+  if (req.body.name && verify.name(req.body.name))
+    err.push(verify.name(req.body.name))
+  if (req.body.firstname && verify.firstname(req.body.firstname))
+    err.push(verify.firstname(req.body.firstname))
+  if (err.length > 0)
+    next(err)
   else
-    req.body.bio = encodeURI(req.body.bio)
+    next()
+}
+
+exports.deletePicture = (req, res, next) => {
+  let err = []
+  if (Object.keys(req.body).length > 1)
+    err.push('Too much parameters, only accept [picture]')
+  if (!req.body.picture)
+    err.push('picture parameters not found')
   if (err.length > 0)
     next(err)
   else

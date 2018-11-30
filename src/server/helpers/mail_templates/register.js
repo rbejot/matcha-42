@@ -1,4 +1,4 @@
-exports.mail = (confirmationCode, firstname) => {
+module.exports = (confirmationCode, firstname) => {
   const html = `
   <p>Bonjour ${firstname},</p>
   <p>Bienvenue sur matcha, veuillez confirmez votre email en cliquant sur le lien si dessous :</p>

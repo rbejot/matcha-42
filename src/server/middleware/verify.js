@@ -73,7 +73,7 @@ exports.pseudo = (pseudo) => {
   else {
     let rgx = /^[a-zA-Z0-9]+$/
     if (!rgx.test(String(pseudo).toLowerCase()) ||
-    pseudo.length > 10 || pseudo.length < 2) {
+    pseudo.length > 10 || pseudo.length < 3) {
       return 'Unvalid pseudo : 2 - 10 characters / special characters not allowed'
     } else {
       return false
@@ -81,6 +81,9 @@ exports.pseudo = (pseudo) => {
   }
 }
 
+// sexe = 1 = man
+// sexe = 2 = woman
+// sexe = 3 = transgender
 exports.gender = (sexe) => {
   console.log('gender')
   if (sexe.length > 1)
@@ -96,6 +99,10 @@ exports.gender = (sexe) => {
   }
 }
 
+
+// orientation = 1 = heterosexual
+// orientation = 2 = homosexual
+// orientation = 3 = bisexual
 exports.orientation = (sexual_orientation) => {
   console.log('tesy')
   if (sexual_orientation.length > 1)

@@ -12,5 +12,6 @@ module.exports = users = {
   'location': 'VARCHAR(258)',
   'confirmed': 'INT(1)',
   'confirmation_code': 'VARCHAR(10)',
+  'forgot': 'INT(1)',
   'create_date': 'TIMESTAMP'
 }

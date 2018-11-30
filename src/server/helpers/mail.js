@@ -25,7 +25,7 @@ module.exports = class Mail {
   registerMail(mail, confirmationCode, firstname) {
     return new Promise((resolve, reject) => {
       let subject = 'Confirmez votre email'
-      let html = template.register.mail(confirmationCode, firstname)
+      let html = template.register(confirmationCode, firstname)
       this.transporter.sendMail(this.mailOptions(mail, subject, html), (err, info) => {
         if (err) reject(`Error in sending confirmation mail : ${err}`)
         else resolve({message: 'mail envoye'})
@@ -36,7 +36,29 @@ module.exports = class Mail {
   confirmationMail(mail, firstname) {
     return new Promise((resolve, reject) => {
       let subject = 'Bienvenue sur Matcha !'
-      let html = template.confirmation.mail(firstname)
+      let html = template.confirmation(firstname)
+      this.transporter.sendMail(this.mailOptions(mail, subject, html), (err, info) => {
+        if (err) reject(err)
+        else resolve({message: 'mail envoyé'})
+      })
+    })
+  }
+
+  passwordChangeMail(mail, firstname) {
+    return new Promise((resolve, reject) => {
+      let subject = 'Mot de passe modifié'
+      let html = template.updatedPassword(firstname)
+      this.transporter.sendMail(this.mailOptions(mail, subject, html), (err, info) => {
+        if (err) reject(err)
+        else resolve({message: 'mail envoyé'})
+      })
+    })
+  }
+
+  forgotPassword(mail, confirmationCode, firstname) {
+    return new Promise((resolve, reject) => {
+      let subject = 'Mot de passe oublié'
+      let html = template.forgotPassword(confirmationCode, firstname)
       this.transporter.sendMail(this.mailOptions(mail, subject, html), (err, info) => {
         if (err) reject(err)
         else resolve({message: 'mail envoyé'})
