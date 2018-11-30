@@ -65,10 +65,12 @@ module.exports = class Db {
   }
 
   async createUser(elements) {
-    let user_exist = await this.findByMany('pseudo', 'mail', elements.pseudo, elements.mail, 'users')
-    if (user_exist.length !== 0) {
+    let user_exist = await this.find('pseudo', elements.pseudo, 'users')
+    if (user_exist.length !== 0)
       throw `${elements.pseudo} already exists`
-    }
+    user_exist = await this.find('mail', elements.mail, 'users')
+    if (user_exist.length !== 0)
+      throw `${elements.mail} already exists`
     return new Promise((resolve, reject) => {
       let insert = utils.toInsert(elements)
       let keys = insert[0]

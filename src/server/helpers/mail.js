@@ -65,4 +65,15 @@ module.exports = class Mail {
       })
     })
   }
+
+  mailChangeMail(mail, firstname) {
+    return new Promise((resolve, reject) => {
+      let subject = 'Email mis à jour'
+      let html = template.updateMail(firstname)
+      this.transporter.sendMail(this.mailOptions(mail, subject, html), (err, info) => {
+        if (err) reject(err)
+        else resolve({message: 'mail envoyé'})
+      })
+    })
+  }
 }

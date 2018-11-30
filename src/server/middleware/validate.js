@@ -38,8 +38,13 @@ exports.password = (req, res, next) => {
 
 exports.mail = (req, res, next) => {
   let err = []
-  if (verify.mail(req.query.mail))
-    err.push(verify.mail(req.query.mail))
+  if (req.query && !req.body) {
+    if (verify.mail(req.query.mail))
+      err.push(verify.mail(req.query.mail))
+  } else {
+    if (verify.mail(req.body.mail))
+      err.push(verify.mail(req.body.mail))
+  }
   if (err.length > 0)
     next(err)
   else

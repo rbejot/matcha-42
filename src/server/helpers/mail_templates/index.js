@@ -1,4 +1,5 @@
-exports.register      = require('./register')
-exports.confirmation  = require('./confirmation')
+exports.register        = require('./register')
+exports.confirmation    = require('./confirmation')
 exports.updatedPassword = require('./updatedPassword')
-exports.forgotPassword = require('./forgotPassword')
+exports.forgotPassword  = require('./forgotPassword')
+exports.updateMail      = require('./updateMail')

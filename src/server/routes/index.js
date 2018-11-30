@@ -28,6 +28,9 @@ module.exports = (app) => {
     .post(wrap(validator.token), upload.single('picture'), wrap(controllers.pictures.addPicture))
     .delete(wrap(validator.token), validator.deletePicture, wrap(controllers.pictures.deletePicture))
 
+  app.route('/mail')
+    .post(wrap(validator.token), validator.mail, wrap(controllers.mail.updateMail))
+    
   app.route('/auth')
     .get(wrap(validator.token), wrap(controllers.auth.checkAuth))
 
