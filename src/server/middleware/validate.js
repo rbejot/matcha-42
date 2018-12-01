@@ -130,6 +130,8 @@ exports.updateProfil = (req, res, next) => {
   let err = []
   if (Object.keys(req.body).length === 0)
     err.push('You must update at least one entry')
+  if (req.body.age && verify.age(req.body.age))
+    err.push(verify.age(req.body.age))
   if (req.body.gender && verify.gender(req.body.gender))
     err.push(verify.gender(req.body.gender))
   if (req.body.sexual_orientation && verify.orientation(req.body.sexual_orientation))

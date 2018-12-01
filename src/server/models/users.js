@@ -6,6 +6,7 @@ module.exports = users = {
   'mail': 'VARCHAR(50)',
   'password': 'VARCHAR(60)',
   'gender': 'INT(1)',
+  'age': 'INT(2)',
   'profil_picture': 'VARCHAR(258)',
   'sexual_orientation': 'INT(1)',
   'bio': 'VARCHAR(258)',
