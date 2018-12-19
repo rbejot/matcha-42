@@ -42,5 +42,5 @@ exports.confirmUser = async (req, res) => {
   }, 'id', response[0].id, 'users')
   mail.confirmationMail(response[0].mail, response[0].firstname)
   const auth = await token.create(response[0].id, processProfil(response[0]))
-  res.status(200).redirect(`http://localhost:3000/home?auth=${auth}`)
+  res.status(200).redirect(`http://localhost:1234/home?auth=${auth}`)
 }
