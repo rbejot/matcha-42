@@ -31,7 +31,7 @@ module.exports = class Db {
   }
 
   createTable(name) {
-    console.log(name)
+    console.log(`Create table : ${name}`)
     return new Promise((resolve, reject) => {
       this.connection.query(`CREATE TABLE IF NOT EXISTS ${name} ${utils.schema(name)}`, (err, res) => {
         if (err) reject(err)

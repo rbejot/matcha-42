@@ -27,3 +27,4 @@ services:
     restart: always
     volumes:
       - ./data/db:/data/db
+    command: mysqld --init-file="/data/db/init_tables.sql"
