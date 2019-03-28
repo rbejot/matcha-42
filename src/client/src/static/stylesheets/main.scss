@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
+
+$font-family: 'Lato', sans-serif;
+
+*+* {
+  box-sizing: border-box;
+  margin: .5em 0
+}
+
+@media(min-width:35em) {
+  .col {
+    display: table-cell
+  }
+
+  .\31 {
+    width: 5%
+  }
+
+  .\33 {
+    width: 22%
+  }
+
+  .\34 {
+    width: 30%
+  }
+
+  .\35 {
+    width: 40%
+  }
+
+  .\32 {
+    width: 15%
+  }
+
+  .row {
+    display: table;
+    border-spacing: 1em 0
+  }
+}
+
+.row,
+.w-100 {
+  width: 100%
+}
+
+.card:focus,
+hr {
+  outline: 0;
+  border: solid #fa0
+}
+
+.card,
+pre {
+  padding: 1em;
+  border: solid #eee
+}
+
+.btn:hover,
+a:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.c {
+  max-width: 60em;
+  padding: 1em;
+  margin: auto;
+  font: 1em/1.6 $font-family
+}
+
+h6 {
+  font: 300 1em $font-family
+}
+
+h5 {
+  font: 300 1.2em $font-family
+}
+
+h3 {
+  font: 300 2em $font-family
+}
+
+h4 {
+  font: 300 1.5em $font-family
+}
+
+h2 {
+  font: 300 2.2em $font-family
+}
+
+h1 {
+  font: 300 2.5em $font-family
+}
+
+a {
+  color: #fa0;
+  text-decoration: none
+}
+
+.btn.primary {
+  color: #fff;
+  background: #fa0;
+  border: solid #fa0
+}
+
+pre {
+  overflow: auto
+}
+
+td,
+th {
+  padding: 1em;
+  text-align: left;
+  border-bottom: solid #eee
+}
+
+.btn {
+  cursor: pointer;
+  padding: 1em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: #fff;
+  border: solid;
+  font: .7em $font-family
+}
+
+.thin {
+  font-weight: 300;
+}
+
+u {
+  text-decoration: underline;
+}
+
+.warning {
+  background-color: #ff4b4b;
+  box-shadow: 0px 6px 17px 2px #ffb6b6;
+  line-height: 20px;
+  text-align: center;
+  position: fixed;
+  color: white;
+  margin-top: 0;
+  height: 20px;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  // opacity: 1;
+}
+
+.icon {
+  height: 20px;
+  margin-top: 5px;
+}
+
+.btn.bc-black {
+  background-color: black;
+  border: black;
+}
