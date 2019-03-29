@@ -9,7 +9,7 @@ class UserDetails extends Component {
           <div className="row"><h5>Détails {this.props.result}</h5></div>
           <div className="row">
             <span className="3 col">Mon sexe</span>
-            <select class="card">
+            <select className="card">
               <option value="none"></option>
               <option value="men">Homme</option>
               <option value="women">Femme</option>
@@ -18,7 +18,7 @@ class UserDetails extends Component {
           </div>
           <div className="row ">
             <span className="3 col">Mon orientation sexuelle</span>
-            <select class="card">
+            <select className="card">
               <option value="bi">Bi</option>
               <option value="hetero">Hétéro</option>
               <option value="homo">Homo</option>
@@ -26,11 +26,11 @@ class UserDetails extends Component {
           </div>
           <div className="row 12 col">
             <span className="3 col">Petite bio</span>
-            <textarea class="card row" placeholder="Présentez vous en quelques mots"></textarea>
+            <textarea className="card row" placeholder="Présentez vous en quelques mots"></textarea>
           </div>
           <div className="row 12 col">
             <span className="3 col">Intérêts</span>
-            <textarea class="card row" placeholder="#sport #musique #cinéma..."></textarea>
+            <textarea className="card row" placeholder="#sport #musique #cinéma..."></textarea>
           </div>
           <div className="row">
             <input className="btn primary" type="submit" value="Sauvegarder"/>

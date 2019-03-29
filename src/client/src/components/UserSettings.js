@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import UserId from './UserId';
 import UserPass from './UserPass';
 
-class UserAccount extends Component {
+class UserSettings extends Component {
   render() {
     return(
       <div>
@@ -16,4 +16,4 @@ class UserAccount extends Component {
   }
 }
 
-export default UserAccount;
+export default UserSettings;

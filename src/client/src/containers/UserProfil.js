@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 import { displayInfo } from '../actions/simpleActions';
 import UserDetails from '../components/UserDetails';
 import UserPictures from '../components/UserPictures';
-import UserAccount from '../components/UserAccount';
+import UserSettings from '../components/UserSettings';
+import {Route, Link} from 'react-router-dom';
+import AccountNavBar from '../components/AccountNavBar';
 
 const mapStateToProps = state => ({
   info: state.mainReducer.info
@@ -18,14 +20,10 @@ class UserProfil extends Component {
   render() {
     return(
       <div>
-        <div class="row card">
-          <div class="4 col"><a href="#">Détails</a></div>
-          <div class="4 col"><a href="#">Photos</a></div>
-          <div class="4 col"><a href="#">Mon compte</a></div>
-        </div>
-        <UserAccount/>
-        <UserPictures/>
-        <UserDetails/>
+        <AccountNavBar/>
+        <Route exact path="/account" component={UserDetails}/>
+        <Route path="/account/pictures" component={UserPictures}/>
+        <Route path="/account/settings" component={UserSettings}/>
       </div>
     );
   }

@@ -18,7 +18,14 @@ export default (state = {}, action) => {
     case 'USER_LOGIN_STATE':
       return {
         ...state,
-        isLogin: action.isLogin
+        isLogin: true,
+        logout: false
+      }
+    case 'LOGOUT':
+      return {
+        ...state,
+        isLogin: false,
+        logout: true
       }
     default:
       return state;

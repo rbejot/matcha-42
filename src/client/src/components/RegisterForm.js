@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { simpleAction } from '../actions/simpleActions';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = state => ({
   result: state.mainReducer.result
@@ -14,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
 class RegisterForm extends Component {
   render() {
     return(
-      <form className="row card" onSubmit={e => e.preventDefault()}>
+      <form className="card" onSubmit={e => e.preventDefault()}>
         <div className="row"><h4>Inscription {this.props.result}</h4></div>
         <div className="row 3 col">
           <span>Email</span>
@@ -43,7 +44,9 @@ class RegisterForm extends Component {
         <div className="row">
           <input className="btn primary" type="submit" value="M'inscrire"/>
         </div>
-        <a className="row thin"><u>J'ai déjà un compte</u></a>
+        <Link to="/login">
+          <a className="row thin"><u>J'ai déjà un compte</u></a>
+        </Link>
       </form>
     );
   }
