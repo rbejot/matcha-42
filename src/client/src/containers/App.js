@@ -16,7 +16,7 @@ import UserConnected from './UserConnected';
 
 const mapStateToProps = state => ({
   info: state.mainReducer.info,
-  isLogin: state.mainReducer.isLogin
+  isLogin: true
 })
 
 const mapDispatchToProps = dispatch => ({

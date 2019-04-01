@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { displayInfo } from '../actions/simpleActions';
+import {AgeRange, ScoreRange, LocalisationRange, CommonInterests} from './Search/'
 
 const mapStateToProps = state => ({
-  info: state.mainReducer.info
+  info: state.mainReducer.info,
+  userAge: 25
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -16,26 +18,15 @@ class Search extends Component {
     return(
       <div className="card">
         <h5 className="row">Rechercher</h5>
-        <form className="row" onSubmit={e => e.preventDefault()}>
-          <div className="col">
-            <div className="row">Âge</div>
-            <div className="row">intervalle</div>
-          </div>
-          <div className="col">
-            <div className="row">Score</div>
-            <div className="row">intervalle</div>
-          </div>
-          <div className="col">
-            <div className="row">Localisation</div>
-            <div className="row">intervalle distance</div>
-          </div>
-          <div className="col">
-            <div className="row">Intérets en commun</div>
-            <div className="row">selection click</div>
-          </div>
-          <div className="col">
-            <div className="row"></div>
-            <input className="row btn primary" type="submit" value="Rechercher"/>
+        <form onSubmit={e => e.preventDefault()}>
+          <AgeRange/>
+          <ScoreRange/>
+          <LocalisationRange/>
+          <CommonInterests/>
+          <div className="row">
+            <input className="col btn primary" type="submit" value="Rechercher"/>
+            <div className="col"></div>
+            <div className="col"></div>
           </div>
         </form>
       </div>

@@ -94,24 +94,24 @@ h1 {
 
 a {
   color: #fa0;
-  text-decoration: none
+  text-decoration: none;
 }
 
 .btn.primary {
   color: #fff;
   background: #fa0;
-  border: solid #fa0
+  border: solid #fa0;
 }
 
 pre {
-  overflow: auto
+  overflow: auto;
 }
 
 td,
 th {
   padding: 1em;
   text-align: left;
-  border-bottom: solid #eee
+  border-bottom: solid #eee;
 }
 
 .btn {
@@ -165,3 +165,18 @@ u {
   color: black;
 }
 
+.tag-box {
+  max-width: 60em;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.tag {
+  font-size: 1em;
+  padding: .3em;
+  margin: .3em;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: rgb(228, 228, 228);
+}
