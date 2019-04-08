@@ -35,3 +35,38 @@ export const selectedLocalisationRange = (minLocalisation, maxLocalisation) => d
     maxLocalisation: maxLocalisation
   });
 }
+
+export const searchSubmit = (submitData) => dispatch => {
+  dispatch({
+    type: 'SEARCH_SUBMIT',
+    data: submitData
+  })
+}
+
+export const selectedFilter = (filter, order) => dispatch => {
+  let ageFilter, scoreFilter, localisationFilter, tagsFilter;
+  ageFilter = scoreFilter = localisationFilter = tagsFilter = 'none';
+  switch (filter) {
+    case 'age':
+      ageFilter = order;
+    break;
+    case 'score':
+      scoreFilter = order;
+    break;
+    case 'localisation':
+      localisationFilter = order;
+    break;
+    case 'tags':
+      tagsFilter = order;
+    break;
+    default:
+      break;
+  }
+  dispatch({
+    type: 'FILTER',
+    ageFilter: ageFilter,
+    scoreFilter: scoreFilter,
+    localisationFilter: localisationFilter,
+    tagsFilter: tagsFilter
+  });
+}

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { displayInfo } from '../actions/simpleActions';
-import {AgeRange, ScoreRange, LocalisationRange, CommonInterests} from './Search/'
+import { searchSubmit} from '../actions/searchActions';
+import {AgeRange, ScoreRange, LocalisationRange, CommonInterests} from './Search/';
 
 const mapStateToProps = state => ({
   info: state.mainReducer.info,
@@ -17,7 +18,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({displayInfo}, dispatch)
+  actions: bindActionCreators({displayInfo, searchSubmit}, dispatch)
 });
 
 class Search extends Component {
@@ -33,7 +34,7 @@ class Search extends Component {
       maxLocalisation: this.props.maxLocalisation,
       tags: this.props.tags
     }
-    console.log(submit);
+    this.props.actions.searchSubmit(submit);
   }
 
   render() {

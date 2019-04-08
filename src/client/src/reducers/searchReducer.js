@@ -5,7 +5,12 @@ const initialState = {
   minScore: 0,
   maxScore: 100,
   minLocalisation: 0,
-  maxLocalisation: 600
+  maxLocalisation: 600,
+  ageFilter: 'none',
+  scoreFilter: 'none',
+  localisationFilter: 'none',
+  tagsFilter: 'none',
+  searchResult: false
 }
 
 export default (state = initialState, action) => {
@@ -36,11 +41,24 @@ export default (state = initialState, action) => {
         maxScore: action.maxScore
       }
     case 'LOCALISATION_RANGE':
-      console.log(action.minLocalisation, action.maxLocalisation);
       return {
         ...state,
         minLocalisation: action.minLocalisation,
         maxLocalisation: action.maxLocalisation
+      }
+    case 'SEARCH_SUBMIT':
+      return {
+        ...state,
+        data: action.data,
+        searchResult: true
+      }
+    case 'FILTER':
+      return {
+        ...state,
+        ageFilter: action.ageFilter,
+        scoreFilter: action.scoreFilter,
+        localisationFilter: action.localisationFilter,
+        tagsFilter: action.tagsFilter
       }
     default:
       return state;

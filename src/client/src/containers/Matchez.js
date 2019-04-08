@@ -6,7 +6,8 @@ import Search from '../components/Search';
 import Filter from '../components/Filter';
 
 const mapStateToProps = state => ({
-  info: state.mainReducer.info
+  info: state.mainReducer.info,
+  searchResult: state.searchReducer.searchResult
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -18,7 +19,7 @@ class Matchez extends Component {
     return(
       <div>
         <Search/>
-        <Filter/>
+        {this.props.searchResult ? <Filter/> : ''}
         <h5>Suggestions</h5>
       </div>
     );
